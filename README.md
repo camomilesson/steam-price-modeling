@@ -31,6 +31,7 @@ Run notebooks in this order:
 notebooks/01_eda.ipynb
 notebooks/02_price_eda.ipynb
 notebooks/03_feature_engineering.ipynb
+notebooks/04_price_model.ipynb
 ```
 
 `03_feature_engineering.ipynb` generates:
@@ -63,4 +64,3 @@ python -m pip install -r requirements.txt
 ```
 
 Then select the project virtual environment as the Jupyter kernel.
-
