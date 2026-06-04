@@ -10,3 +10,9 @@ data/*.csv
 data/*.json
 data/*.parquet
 
+# Generated model artifacts are versioned with DVC in the MLOps phase.
+models/*.joblib
+models/*.json
+
+# Local reference clone of the course template.
+mlops-template-serving/

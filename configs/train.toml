@@ -1,0 +1,49 @@
+[data]
+path = "data/games_price_model.csv"
+target = "log_list_price"
+selected_scope = "review_count >= 10"
+test_size = 0.2
+random_state = 42
+
+[features]
+tag_min_count = 100
+category_min_count = 100
+numeric = [
+  "required_age_clipped",
+  "platform_count",
+  "Release year",
+  "release_age_years",
+  "dlc_count_clipped",
+  "achievements_clipped",
+  "log1p_dlc_count",
+  "log1p_achievements",
+  "genre_count",
+  "tag_count",
+  "category_count",
+]
+boolean = ["Windows", "Mac", "Linux"]
+
+[features.multilabel]
+genre = "genre_list"
+tag = "tag_list"
+category = "category_list"
+
+[models.xgboost]
+objective = "reg:squarederror"
+n_estimators = 500
+learning_rate = 0.05
+max_depth = 6
+min_child_weight = 5
+subsample = 0.8
+colsample_bytree = 0.8
+reg_alpha = 0.0
+reg_lambda = 1.0
+tree_method = "hist"
+random_state = 42
+n_jobs = -1
+
+[artifacts]
+model_dir = "models"
+final_model_path = "models/final_model.joblib"
+metrics_path = "models/metrics.json"
+metadata_path = "models/metadata.json"
