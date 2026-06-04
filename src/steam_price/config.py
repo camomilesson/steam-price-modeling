@@ -11,6 +11,7 @@ class DataConfig:
     path: Path
     target: str
     selected_scope: str
+    val_size: float
     test_size: float
     random_state: int
 
@@ -33,10 +34,28 @@ class ArtifactConfig:
 
 
 @dataclass(frozen=True)
+class TuningConfig:
+    enabled: bool
+    n_trials: int
+    direction: str
+    metric: str
+    search_space: dict[str, list[float | int]]
+
+
+@dataclass(frozen=True)
+class MLflowConfig:
+    tracking_uri: str
+    experiment_name: str
+    final_run_name: str
+
+
+@dataclass(frozen=True)
 class TrainConfig:
     data: DataConfig
     features: FeatureConfig
     models: dict[str, dict[str, Any]]
+    tuning: TuningConfig
+    mlflow: MLflowConfig
     artifacts: ArtifactConfig
 
 
@@ -49,6 +68,7 @@ def load_config(path: str | Path) -> TrainConfig:
             path=Path(raw["data"]["path"]),
             target=raw["data"]["target"],
             selected_scope=raw["data"]["selected_scope"],
+            val_size=float(raw["data"]["val_size"]),
             test_size=float(raw["data"]["test_size"]),
             random_state=int(raw["data"]["random_state"]),
         ),
@@ -60,6 +80,18 @@ def load_config(path: str | Path) -> TrainConfig:
             multilabel=dict(raw["features"]["multilabel"]),
         ),
         models=dict(raw["models"]),
+        tuning=TuningConfig(
+            enabled=bool(raw["tuning"]["enabled"]),
+            n_trials=int(raw["tuning"]["n_trials"]),
+            direction=raw["tuning"]["direction"],
+            metric=raw["tuning"]["metric"],
+            search_space=dict(raw["tuning"]["search_space"]),
+        ),
+        mlflow=MLflowConfig(
+            tracking_uri=raw["mlflow"]["tracking_uri"],
+            experiment_name=raw["mlflow"]["experiment_name"],
+            final_run_name=raw["mlflow"]["final_run_name"],
+        ),
         artifacts=ArtifactConfig(
             model_dir=Path(raw["artifacts"]["model_dir"]),
             final_model_path=Path(raw["artifacts"]["final_model_path"]),

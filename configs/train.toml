@@ -2,6 +2,7 @@
 path = "data/games_price_model.csv"
 target = "log_list_price"
 selected_scope = "review_count >= 10"
+val_size = 0.15
 test_size = 0.2
 random_state = 42
 
@@ -41,6 +42,27 @@ reg_lambda = 1.0
 tree_method = "hist"
 random_state = 42
 n_jobs = -1
+
+[tuning]
+enabled = true
+n_trials = 10
+direction = "minimize"
+metric = "mae_dollars"
+
+[tuning.search_space]
+n_estimators = [200, 700]
+learning_rate = [0.02, 0.12]
+max_depth = [3, 8]
+min_child_weight = [1, 10]
+subsample = [0.65, 1.0]
+colsample_bytree = [0.65, 1.0]
+reg_alpha = [0.0, 1.0]
+reg_lambda = [0.5, 4.0]
+
+[mlflow]
+tracking_uri = "mlruns"
+experiment_name = "steam-price-xgb"
+final_run_name = "final-xgboost"
 
 [artifacts]
 model_dir = "models"

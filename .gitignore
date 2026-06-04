@@ -1,9 +1,13 @@
 .DS_Store
 .venv/
 .jupyter/
+Library/
+mlruns/
 .ipynb_checkpoints/
 __pycache__/
 *.pyc
+secrets/*
+!secrets/.gitkeep
 
 # Dataset files are large and should be downloaded from Kaggle.
 data/*.csv
