@@ -136,6 +136,20 @@ dvc pull
 
 The Google Drive folder has been shared with the instructor.
 
+### DVC Google Drive Auth
+
+On a fresh machine, `dvc pull` may open a Google OAuth flow. If Google blocks DVC's default OAuth app, create your own OAuth desktop client in Google Cloud Console and configure it locally:
+
+```bash
+dvc remote modify --local gdrive gdrive_client_id "<your-client-id>"
+dvc remote modify --local gdrive gdrive_client_secret "<your-client-secret>"
+dvc pull
+```
+
+These settings are written to `.dvc/config.local`, which is ignored by git. Do not commit OAuth credentials or service-account JSON files.
+
+For normal personal Google Drive folders, OAuth user auth is preferred. Service accounts usually cannot upload to a normal "My Drive" folder because they do not have storage quota unless a Google Shared Drive is used.
+
 ## FastAPI Serving
 
 The API loads `models/final_model.joblib` and serves one-game predictions.
