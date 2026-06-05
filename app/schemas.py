@@ -10,7 +10,7 @@ class GameFeatures(BaseModel):
         json_schema_extra={
             "example": {
                 "name": "Example Quest",
-                "current_price": 19.99,
+                "proposed_price": 19.99,
                 "release_year": 2024,
                 "required_age": 0,
                 "dlc_count": 1,
@@ -26,7 +26,7 @@ class GameFeatures(BaseModel):
     )
 
     name: str = Field(..., min_length=1, examples=["Example Quest"])
-    current_price: float = Field(..., ge=0, examples=[19.99])
+    proposed_price: float = Field(..., ge=0, examples=[19.99])
     release_year: int = Field(..., ge=1970, le=2100, examples=[2024])
     required_age: int = Field(0, ge=0, le=21, examples=[0])
     dlc_count: int = Field(0, ge=0, examples=[1])
@@ -41,7 +41,7 @@ class GameFeatures(BaseModel):
 
 class PricePrediction(BaseModel):
     name: str
-    current_price: float
+    proposed_price: float
     predicted_market_price: float
     price_ratio: float
     price_alignment: str

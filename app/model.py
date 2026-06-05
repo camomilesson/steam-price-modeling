@@ -35,12 +35,12 @@ class ModelLoader:
         matrix = self.artifact["feature_builder"].transform(frame)
         predicted_log = self.artifact["model"].predict(matrix)
         predicted_price = float(to_price(predicted_log)[0])
-        current_price = float(features.current_price)
-        price_ratio = current_price / predicted_price if predicted_price > 0 else float("inf")
+        proposed_price = float(features.proposed_price)
+        price_ratio = proposed_price / predicted_price if predicted_price > 0 else float("inf")
 
         return PricePrediction(
             name=features.name,
-            current_price=round(current_price, 2),
+            proposed_price=round(proposed_price, 2),
             predicted_market_price=round(predicted_price, 2),
             price_ratio=round(price_ratio, 3),
             price_alignment=self._alignment_label(price_ratio),
@@ -56,7 +56,7 @@ class ModelLoader:
 
         row = {
             "Name": features.name,
-            "current_price": features.current_price,
+            "current_price": features.proposed_price,
             "required_age_clipped": min(features.required_age, 18),
             "platform_count": platform_count,
             "Release year": features.release_year,

@@ -179,7 +179,7 @@ Example response:
 ```json
 {
   "name": "Example Quest",
-  "current_price": 19.99,
+  "proposed_price": 19.99,
   "predicted_market_price": 8.43,
   "price_ratio": 2.371,
   "price_alignment": "above-market",

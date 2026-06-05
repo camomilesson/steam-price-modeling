@@ -41,7 +41,7 @@ Required fields:
 ```json
 {
   "name": "Example Quest",
-  "current_price": 19.99,
+  "proposed_price": 19.99,
   "release_year": 2024,
   "required_age": 0,
   "dlc_count": 1,
@@ -70,7 +70,7 @@ Response:
 ```json
 {
   "name": "Example Quest",
-  "current_price": 19.99,
+  "proposed_price": 19.99,
   "predicted_market_price": 8.43,
   "price_ratio": 2.371,
   "price_alignment": "above-market",
@@ -81,6 +81,6 @@ Response:
 
 `price_alignment` uses the same fixed rule as the evaluation notebook:
 
-- below-market: `current_price / predicted_market_price < 0.6`
+- below-market: `proposed_price / predicted_market_price < 0.6`
 - market-aligned: `0.6 <= ratio <= 1.5`
 - above-market: `ratio > 1.5`
